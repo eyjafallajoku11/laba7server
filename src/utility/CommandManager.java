@@ -31,7 +31,7 @@ public class CommandManager {
         humanCommandMap.put(name, cmd);
     }
 
-    public static String execute(Request request){
+    public static String execute(Request request, String login){
         String commandName = request.getCommandName();
         BareCommandHistory.add_to_history(commandName);
         if (creatorCommandMap.containsKey(commandName)){

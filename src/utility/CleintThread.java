@@ -3,24 +3,21 @@ package utility;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
-import java.util.HashMap;
 import java.util.Objects;
 
+import static utility.Logins.*;
 import static utility.Serialisation.deserialize;
 import static utility.Serialisation.serialize;
 
 public class CleintThread extends Thread{
-    HashMap<String, String> users = new HashMap<>();
     private static SocketChannel channel = null;
     private static ByteBuffer[] bufferOut;
 
-    private static ByteBuffer bufferIn;
-
     private static String answer;
 
-    private static String login;
-    private static String password;
-    private static boolean authorized = false;
+    private static String currentLogin = null;
+    private static Request request;
+
     public CleintThread(SocketChannel socketChannel) {
         channel = socketChannel;
     }
@@ -29,16 +26,14 @@ public class CleintThread extends Thread{
     public void run() {
         while (channel.isConnected()) {
             try {
-                Request request;
                 int[] requestData = getRequestData();
                 if (!Objects.isNull(requestData)) {
                     request = getRequest(requestData);
                     System.out.println(request);
-                    if (request.getCommandName().equals("login")){
-                        checkLogin();
-                    }
+                    if (request.getCommandName().equals("login")) checkLogin();
+                    else if (request.getCommandName().equals("register")) register();
                     else {
-                        answer = CommandManager.execute(request);
+                        answer = CommandManager.execute(request, currentLogin);
                     }
                     sendAnswer(answer);
                 }
@@ -54,14 +49,21 @@ public class CleintThread extends Thread{
     }
 
     private void checkLogin() {
-        Request request = getRequest(getRequestData());
-        login = request.getCreatorArgument()[0];
-        password = request.getCreatorArgument()[1];
-        System.out.println("кринж");
-        if ((users.containsKey(login) && (users.get(login).equals(password)))) {
-            authorized = true;
+        String login = request.getCreatorArgument()[0];
+        String password = request.getCreatorArgument()[1];
+        if (authorise(login,password)) {
             answer = "you're in";
+            currentLogin = login;
         } else answer = "you're out";
+    }
+    private void register(){
+        String login = request.getCreatorArgument()[0];
+        String password = request.getCreatorArgument()[1];
+        if (!containsLogin(login)){
+            answer = "i will remember you";
+            currentLogin = login;
+            addToList(login, password);
+        } else answer = "уже занято, попробуй например \"" + login +"69\"";
 
     }
 
@@ -87,7 +89,7 @@ public class CleintThread extends Thread{
     }
     private static Request getRequest(int[] bufferData) {
         Request request;
-        bufferIn = ByteBuffer.allocate(bufferData[0]);
+        ByteBuffer bufferIn = ByteBuffer.allocate(bufferData[0]);
         int size = bufferData[1];
         byte[] input = new byte[0];
         try {
