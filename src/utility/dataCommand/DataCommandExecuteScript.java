@@ -55,7 +55,7 @@ public class DataCommandExecuteScript extends DataCommand {
                                     }
                                 } while (t_data<12);
                                 creator[12] = str_out[1];
-                                CommandManager.execute(new Request(str_out[0], creator));
+                                CommandManager.execute(new Request(str_out[0], creator),u);
                             }
                             else if (str_out[0].equals("filter_less_than_governor")){
                                 do {
@@ -96,12 +96,12 @@ public class DataCommandExecuteScript extends DataCommand {
                                             return ("неправильная дата");
                                         }
                                     }
-                                    CommandManager.execute(new Request( "filter_less_than_governor", governor));
+                                    CommandManager.execute(new Request( "filter_less_than_governor", governor),u);
                                 }
                                 response = new StringBuilder();
                             }
                             else {
-                                CommandManager.execute(new Request(str_out[0],str_out[1]));
+                                CommandManager.execute(new Request(str_out[0],str_out[1]),u);
                             }
                             str_out[0]=null;
                             str_out[1]=null;
@@ -119,7 +119,8 @@ public class DataCommandExecuteScript extends DataCommand {
         return "";
     }
 
-    public String execute(String data) {
+    public String execute(String data, String user) {
+        u = user;
         try (BufferedInputStream inp_str = new BufferedInputStream(new FileInputStream(data))) {
             return readByLine(inp_str);
         } catch (FileNotFoundException e) {
@@ -129,5 +130,6 @@ public class DataCommandExecuteScript extends DataCommand {
         }
     }
     public static boolean isPublic = false;
+    private static String u;
 
 }

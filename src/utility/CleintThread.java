@@ -38,11 +38,11 @@ public class CleintThread extends Thread{
                     sendAnswer(answer);
                 }
             } catch (Exception e) {
-                try {
-                    channel.close();
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
+//                try {
+//                    channel.close();
+//                } catch (IOException ex) {
+                    throw new RuntimeException(e);
+//                }
             }
         }
         System.out.println("клиент отключен");

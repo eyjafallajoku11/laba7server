@@ -8,7 +8,7 @@ public class BareCommandHistory extends BareCommand {
         count++;
         if (count == 8) count = 0;
     }
-    public String execute(){
+    public String execute(String username){
         StringBuilder output = new StringBuilder();
         for (short i = count; i<8; i++){
             output.append(history[i]);

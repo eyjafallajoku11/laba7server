@@ -12,20 +12,24 @@ public class CityCreator {
     private String[] data;
     private City city;
 
-    public CityCreator(){
+    private String creator;
+
+    public CityCreator(String user){
+        creator = user;
         data = new String[14];
-        city = new City();
+        city = new City(creator);
     }
-    public CityCreator(String[] creatorData){
+    public CityCreator(String[] creatorData, String user){
+        creator = user;
         if (creatorData.length == 14){
             data = creatorData;
         }
         else data = new String[14];
-        city = new City();
+        city = new City(creator);
     }
     public void clear_data(){
         this.data = new String[14];
-        city = new City();
+        city = new City(creator);
     }
     public void set_data(int index, String data){
         if (data.equals("")){
@@ -84,6 +88,7 @@ public class CityCreator {
 
     public void add_city_to_map(){
         HashMapController.add_to_map(city);
+        SQLmanager.insert(city);
     }
 }
 

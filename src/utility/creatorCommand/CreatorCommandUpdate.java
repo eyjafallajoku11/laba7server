@@ -5,9 +5,9 @@ import utility.CommandManager;
 import utility.Request;
 
 public class CreatorCommandUpdate extends CreatorCommand {
-    public String execute(String[] creatorData) {
-        CommandManager.execute(new Request( "remove_by_key",creatorData[12]));
-        CommandManager.execute(new Request("insert", creatorData));
+    public String execute(String[] creatorData, String u) {
+        CommandManager.execute(new Request( "remove_by_key",creatorData[12]),u);
+        CommandManager.execute(new Request("insert", creatorData),u);
         return ("город обновлён");
     }
     public static boolean isPublic = false;

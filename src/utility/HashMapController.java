@@ -18,7 +18,7 @@ public class HashMapController {
         map.put(entity.getId(),entity);
     }
 
-    public static void remove_from_map_by_ID(long id){
+    public static void remove_by_ID(long id){
         map.remove(id);
     }
 

@@ -8,7 +8,7 @@ import static java.lang.System.out;
 
 
 public class HumanCommandFilterLessThanGovernor extends HumanCommand {
-    public String execute(Human governor) {
+    public String execute(Human governor, String u) {
         StringBuilder output = new StringBuilder();
         for (long keys : HashMapController.ID_set()) {
             City city = HashMapController.get_by_ID(keys);

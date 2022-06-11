@@ -15,8 +15,7 @@ public class BareCommandHelp extends BareCommand {
             "remove_all_by_government government : удалить из коллекции все элементы, значение поля government которого эквивалентно заданному\n" +
             "filter_less_than_governor governor : вывести элементы, значение поля governor которых меньше заданного\n" +
             "print_descending : вывести элементы коллекции в порядке убывания";
-    public String execute(){
+    public String execute(String login){
         return s;
     }
-    public final static boolean isPublic = true;
 }

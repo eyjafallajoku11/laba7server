@@ -1,5 +1,5 @@
 package utility.bareCommand;
 
 public abstract class BareCommand {
-    public abstract String execute();
+    public abstract String execute(String login);
 }

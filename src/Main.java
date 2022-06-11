@@ -1,4 +1,5 @@
 import utility.CommandManager;
+import utility.SQLmanager;
 import utility.bareCommand.*;
 import utility.creatorCommand.CreatorCommandInsert;
 import utility.creatorCommand.CreatorCommandRemoveLower;
@@ -26,6 +27,6 @@ public class Main {
         CommandManager.dataRegister("remove_all_by_government", new DataCommandRemoveAllByGovernment());
 
         CommandManager.humanRegister("filter_less_than_governor", new HumanCommandFilterLessThanGovernor());}
-        Server.run(1567);
+        Server.run(2567);
     }
 }

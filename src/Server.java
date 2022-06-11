@@ -11,7 +11,8 @@ import java.util.Objects;
 public class Server {
 
     public static void run(int port){
-//        SQLmanager.connect();
+        SQLmanager.connect();
+        SQLmanager.getCollection();
         ServerSocketChannel serverChannel;
         try {
             serverChannel = ServerSocketChannel.open();

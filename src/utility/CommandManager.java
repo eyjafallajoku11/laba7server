@@ -35,16 +35,16 @@ public class CommandManager {
         String commandName = request.getCommandName();
         BareCommandHistory.add_to_history(commandName);
         if (creatorCommandMap.containsKey(commandName)){
-            return creatorCommandMap.get(commandName).execute(request.getCreatorArgument());
+            return creatorCommandMap.get(commandName).execute(request.getCreatorArgument(), login);
         }
         if (humanCommandMap.containsKey(commandName)){
-            return humanCommandMap.get(commandName).execute(request.getHumanArgument());
+            return humanCommandMap.get(commandName).execute(request.getHumanArgument(), login);
         }
         if (dataCommandMap.containsKey(commandName)){
-            return dataCommandMap.get(commandName).execute(request.getDataArgument());
+            return dataCommandMap.get(commandName).execute(request.getDataArgument(), login);
         }
         if (bareCommandMap.containsKey(commandName)){
-            return bareCommandMap.get(commandName).execute();
+            return bareCommandMap.get(commandName).execute(login);
         }
         else return "";
     }

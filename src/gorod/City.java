@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import static java.lang.Math.sqrt;
 
 public class City implements Comparable <City>{
-//    private final String username;
+    private final String username;
     private long id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
     private Coordinates coordinates; //Поле не может быть null
@@ -19,15 +19,16 @@ public class City implements Comparable <City>{
     private StandardOfLiving standardOfLiving; //Поле может быть null
     private Human governor; //Поле может быть null
 
-//    public City(String username){
-//        this.username = username;
-//    }
-    public City(){};
-
+    public City(String username){
+        this.username = username;
+    }
     public long getId() {
         return id;
     }
 
+    public String getUsername() {
+        return username;
+    }
     public Climate getClimate() {
         return climate;
     }

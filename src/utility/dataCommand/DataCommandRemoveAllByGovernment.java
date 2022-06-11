@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.Objects;
 
 public class DataCommandRemoveAllByGovernment extends DataCommand {
-    public String execute(String data) {
+    public String execute(String data, String u) {
         Government government;
         switch (data){
             case "ITMOCRACY":
@@ -30,14 +30,12 @@ public class DataCommandRemoveAllByGovernment extends DataCommand {
                 return ("Такого типа государства не знаю, есть только ITMOCRACY, KLEPTOCRACY, MERITOCRACY, MONARCHY, TELLUROCRACY)");
         }
         int count = 0;
-        if (!Objects.isNull(government)) {
-            Iterator<Long> it = HashMapController.getMap().keySet().iterator();
-            while (it.hasNext()) {
-                long key = it.next();
-                if (HashMapController.get_by_ID(key).getGovernment().equals(government)) {
-                    it.remove();
-                    count++;
-                }
+        Iterator<Long> it = HashMapController.getMap().keySet().iterator();
+        while (it.hasNext()) {
+            long key = it.next();
+            if (HashMapController.get_by_ID(key).getGovernment().equals(government) && HashMapController.get_by_ID(key).getUsername().equals(u)) {
+                it.remove();
+                count++;
             }
         }
         return "удалено " + count + " городов";

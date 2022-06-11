@@ -8,12 +8,12 @@ import java.util.Objects;
 
 import static java.lang.System.out;
 public class CreatorCommandInsert extends CreatorCommand {
-    public String execute(String[] creatorData){
+    public String execute(String[] creatorData, String login){
         try {
             if (!HashMapController.contains_ID(Long.parseLong(creatorData[12]))) {
                 try {
                     out.println(Arrays.toString(creatorData));
-                    CityCreator creator = new CityCreator(creatorData);
+                    CityCreator creator = new CityCreator(creatorData, login);
                     creator.create_city();
                     creator.add_city_to_map();
                     if (Objects.isNull(HashMapController.getInitialisation())) {

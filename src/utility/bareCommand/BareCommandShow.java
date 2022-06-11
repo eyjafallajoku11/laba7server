@@ -3,7 +3,7 @@ package utility.bareCommand;
 import utility.HashMapController;
 
 public class BareCommandShow extends BareCommand {
-    public String execute(){
+    public String execute(String u){
         if (HashMapController.ID_set().isEmpty()) return("коллекция пустая");
         else {
             StringBuilder output = new StringBuilder();

@@ -6,25 +6,24 @@ import utility.CommandManager;
 import utility.HashMapController;
 import utility.Request;
 
-import static java.lang.System.out;
-
 public class CreatorCommandReplaceIfGreater extends CreatorCommand {
-    public String execute(String[] creatorData) {
-        CityCreator creator = new CityCreator(creatorData);
+    public String execute(String[] creatorData, String u) {
+        CityCreator creator = new CityCreator(creatorData, u);
         try {
             String id = creatorData[12];
             if (!HashMapController.contains_ID(Long.parseLong(id))) {
-                CommandManager.execute(new Request("insert",creatorData));
+                CommandManager.execute(new Request("insert",creatorData),u);
                 return "город добавлен";
             } else {
                 try{
                     creator.create_city();
-                    if (creator.getCity().compareTo(HashMapController.get_by_ID(Long.parseLong(id))) > 0) {
-                        CommandManager.execute(new Request("remove_by_key", id));
+                    Long key = Long.parseLong(id);
+                    if (creator.getCity().compareTo(HashMapController.get_by_ID(key)) > 0 && HashMapController.get_by_ID(key).getUsername().equals(u)) {
+                        CommandManager.execute(new Request("remove_by_key", id),u);
                         creator.add_city_to_map();
-                        return "город добавлен";
+                        return "город заменем";
                     }
-                    return "город не добавлен";
+                    return "город не заменен";
                 } catch (NullPointerException e) {
                     return ("не хватает обязательных переменных, город не создан");
                 }
